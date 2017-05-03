@@ -346,6 +346,7 @@ namespace Samc
 		
 		private void lvAction_Click_1(object sender, RoutedEventArgs e)
 		{
+			//(sender as FrameworkElement).IsSealed. = true;
 			(sender as FrameworkElement).ContextMenu.IsOpen = true;
 		}
 
@@ -391,33 +392,50 @@ namespace Samc
 		}
 
 		//전체 처리 ◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇◇
+		private void contextAll_PlayTime_Click(object sender, RoutedEventArgs e)
+		{
+			this.Sync_Add(SmiManager.TypeSyncAdd_Taget.All, SmiManager.TypeSyncAdd_Time.PlayTime);
+		}
+
+		private void contextAll_Minus500ms_Click(object sender, RoutedEventArgs e)
+		{
+			this.Sync_Add(SmiManager.TypeSyncAdd_Taget.All, SmiManager.TypeSyncAdd_Time.Minus500ms);
+		}
+
+		private void contextAll_Plus500ms_Click(object sender, RoutedEventArgs e)
+		{
+			this.Sync_Add(SmiManager.TypeSyncAdd_Taget.All, SmiManager.TypeSyncAdd_Time.Plus500ms);
+		}
 		#endregion
 
 		private void Sync_Add(SmiManager.TypeSyncAdd_Taget typeTaget, SmiManager.TypeSyncAdd_Time typeTime)
-		{//인덱스 가지고 오기
+		{
+			//인덱스 가지고 오기
 			int nIndex = this.lvSmiData.SelectedIndex;
 
 			//기준 시작 지점 가지고 오기
-			int nSync = this.m_SM.SMI.Data[nIndex].Start;
+			int nSync = 0;
 
 			//시간 계산
 			switch (typeTime)
 			{
 				case SmiManager.TypeSyncAdd_Time.PlayTime:
+					nSync = this.m_SM.SMI.Data[nIndex].Start;
 					nSync = Convert.ToInt32(this.meMain.Position.TotalMilliseconds) - this.m_SM.SMI.Data[nIndex].Start;
 					break;
 				case SmiManager.TypeSyncAdd_Time.Minus500ms:
-					nSync -= 500;
+					nSync = -500;
 					break;
 				case SmiManager.TypeSyncAdd_Time.Plus500ms:
-					nSync += 500;
+					nSync = 500;
 					break;
 			}
 
 			//싱크를 밀어 준다.
 			this.m_SM.Sync_Add(typeTaget, nIndex, nSync);
 
-			ICollectionView view = CollectionViewSource.GetDefaultView(this.lvSmiData.ItemsSource);
+			ICollectionView view 
+				= CollectionViewSource.GetDefaultView(this.lvSmiData.ItemsSource);
 			view.Refresh();
 		}
 

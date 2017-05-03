@@ -113,7 +113,7 @@ namespace Samc.SAMI
 			
 
 			//지정한 인덱스부터 끝까지 돌린다.
-			for (int i = nStartIndex; i < this.SMI.Data.Count; ++i)
+			for (int i = nStart; i < this.SMI.Data.Count; ++i)
 			{
 				//아이템을 선택하고
 				SmaiSync item = this.SMI.Data[i];

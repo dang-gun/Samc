@@ -171,9 +171,9 @@
 												<MenuItem Header="0.5초 뒤로로" Click="contextOne_Plus500ms_Click" />
 												<Separator />
 												<MenuItem Header="전체" />
-												<MenuItem Header="현재 위치로" />
-												<MenuItem Header="0.5초 앞으로" />
-												<MenuItem Header="0.5초 뒤로로" />
+												<MenuItem Header="현재 위치로" Click="contextOne_PlayTime_Click" />
+												<MenuItem Header="0.5초 앞으로" Click="contextAll_Minus500ms_Click" />
+												<MenuItem Header="0.5초 뒤로로" Click="contextAll_Plus500ms_Click" />
 											</ContextMenu>
 										</Button.ContextMenu>
 									</Button>
